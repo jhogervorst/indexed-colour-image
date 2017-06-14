@@ -1,0 +1,12 @@
+.form-control input[type=range] {
+	height: 100%;
+}
+
+.input-group-addon#colors-value {
+	min-width: 50px;
+}
+
+#canvas {
+	width: 100%;
+	border: 1px solid #ccc;
+}
