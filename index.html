@@ -25,14 +25,14 @@
 		</div>
 
 		<div class="row">
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="form-group">
 					<label for="image">Image file:</label>
 					<input type="file" class="form-control" id="image">
 				</div>
 			</div>
 
-			<div class="col-sm-4">
+			<div class="col-sm-3">
 				<div class="form-group">
 					<label for="colors">Values per channel (R/G/B):</label>
 					<div class="input-group">
@@ -45,9 +45,25 @@
 			</div>
 
 			<div class="col-sm-4">
-				<label>Actions:</label>
-				<div>
-					<a class="btn btn-primary" id="download">Download Indexed Image</a>
+				<div class="form-group">
+					<label>Options:</label>
+					<div>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="remove-alpha" checked> Remove alpha channel
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" id="grayscale"> Convert to greyscale
+						</label>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-2">
+				<div class="form-group">
+					<label>Actions:</label>
+					<div>
+						<a class="btn btn-primary" id="download">Download</a>
+					</div>
 				</div>
 			</div>
 		</div>

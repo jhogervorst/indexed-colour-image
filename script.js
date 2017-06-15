@@ -1,9 +1,15 @@
 var imageInput = $id('image');
 var colorsInput = $id('colors');
+var removeAlphaInput = $id('remove-alpha');
+var grayscaleInput = $id('grayscale');
 var downloadButton = $id('download');
 var outputCanvas = $id('canvas');
 var outputContext = outputCanvas.getContext('2d');
 var inputCanvas, inputContext;
+
+function roundAndClamp(value) {
+	return Math.round(Math.max(0, Math.min(255, value)));
+};
 
 var generateImage = debounce(function() {
 	if (!inputCanvas) return;
@@ -13,6 +19,20 @@ var generateImage = debounce(function() {
 	var divider = Math.round(255 / (colorsInput.value - 1));
 
 	for (var i = 0; i < pixels.length; i += 4) {
+		if (removeAlphaInput.checked && pixels[i+3] < 255) {
+			var alpha   = pixels[i+3] / 255;
+			pixels[i  ] = roundAndClamp(alpha * pixels[i  ] + (1 - alpha) * 255); // R
+			pixels[i+1] = roundAndClamp(alpha * pixels[i+1] + (1 - alpha) * 255); // G
+			pixels[i+2] = roundAndClamp(alpha * pixels[i+2] + (1 - alpha) * 255); // B
+			pixels[i+3] = 255;
+		}
+
+		if (grayscaleInput.checked) {
+			pixels[i  ] =                                                                           // R
+			pixels[i+1] =                                                                           // G
+			pixels[i+2] = roundAndClamp(0.3 * pixels[i] + 0.59 * pixels[i+1] + 0.11 * pixels[i+2]); // B
+		}
+
 		pixels[i  ] = Math.round((pixels[i  ]) / divider) * divider; // R
 		pixels[i+1] = Math.round((pixels[i+1]) / divider) * divider; // G
 		pixels[i+2] = Math.round((pixels[i+2]) / divider) * divider; // B
@@ -30,6 +50,10 @@ colorsInput.onchange = colorsInput.oninput = function(event) {
 };
 
 colorsInput.onchange({});
+
+removeAlphaInput.onchange = grayscaleInput.onchange = function() {
+	generateImage(true);
+};
 
 downloadButton.onclick = function() {
 	if (!inputCanvas) return false;

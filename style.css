@@ -2,6 +2,11 @@
 	height: 100%;
 }
 
+.form-group .checkbox-inline {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
 .input-group-addon#colors-value {
 	min-width: 50px;
 }
